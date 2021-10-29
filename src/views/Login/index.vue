@@ -34,7 +34,7 @@ export default {
 
     methods: {
         login() {
-            this.$store.commit('setUser', {
+            this.$store.dispatch('setUser', {
                 user: this.user
             })
             this.$router.push({ name: 'Home'})

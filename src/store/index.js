@@ -14,8 +14,8 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        setUser({ commit }) {
-            commit('setUser');
+        setUser({ commit }, payload) {
+            commit('setUser', payload);
         }
     },
     modules: {},
