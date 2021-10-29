@@ -1,0 +1,35 @@
+@import "../core/mixins";
+@import "../core/functions";
+@import "../core/settings";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+  background-color: $background;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 18px;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  color: $font;
+}
+
+button {
+  cursor: pointer;
+  outline: 0;
+}
+
+input {
+  outline: 0;
+}

@@ -1,0 +1,7 @@
+@function rem($pixels, $context: 16) {
+  @return #{$pixels/$context}rem;
+}
+
+@function color($color) {
+  @return map-get($colors, $color);
+}
