@@ -34,9 +34,7 @@ export default {
 
     methods: {
         login() {
-            this.$store.dispatch('setUser', {
-                user: this.user
-            })
+            this.$store.dispatch('setUser', this.user);
             this.$router.push({ name: 'Home'})
         }
     }

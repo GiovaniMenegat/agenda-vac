@@ -6,21 +6,29 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        user: ''
+        user: '',
+        appointments: []
     },
     mutations: {
         setUser(state, payload) {
             state.user = payload;
-        }
+        },
+        addAppointment(state, payload) {
+            state.appointments.push(payload);
+        },
     },
     actions: {
         setUser({ commit }, payload) {
             commit('setUser', payload);
-        }
+        },
+        addAppointment({ commit }, payload) {
+            commit('addAppointment', payload);
+        },
     },
     modules: {},
     getters: {
-        getUser: state => state.user
+        getUser: state => state.user,
+        getAppointments: state => state.appointments
     },
     plugins: [createPersistedState()]
 })

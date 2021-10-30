@@ -5,6 +5,15 @@
     <button type="button" class="home:create-button" @click="openCreateModal">Criar novo agendamento</button>
 
     <ModalCreate v-show="isModalCreateOpen" @close="closeCreateModal" />
+
+    <div class="home:appointments">
+      <Appointment 
+        v-for="(appointment, idx) in appointments" 
+        :key="idx" 
+        :appointment="appointment"
+      />
+    </div>
+    
   </div>
 </template>
 
@@ -12,6 +21,7 @@
 
 import Header from '@/components/Header'
 import ModalCreate from '@/components/Modal/Create'
+import Appointment from '@/components/Appointment'
 
 export default {
   name: 'Home',
@@ -25,17 +35,27 @@ export default {
   methods: {
     openCreateModal() {
       this.isModalCreateOpen = true;
-      console.log(ModalCreate);
     },
     closeCreateModal() {
       this.isModalCreateOpen = false;
     }
   },
+
+  mounted() {
+    console.log(this.appointments);
+  },
   
   components: {
     Header,
-    ModalCreate
-  }
+    ModalCreate,
+    Appointment
+  },
+
+  computed: {
+      appointments() {
+        return this.$store.state.appointments
+      }
+    }
 }
 </script>
 
@@ -50,6 +70,10 @@ export default {
       border: 1px solid $green;
       border-radius: 6px;
       color: #fff;
+    }
+
+    &\:appointments {
+      margin-top: 100px;
     }
   }
 </style>

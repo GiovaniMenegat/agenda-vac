@@ -17,20 +17,26 @@
                 <form>
                     <div class="schedule">
                         <label for="schedule">Horário</label>
-                        <input type="date" id="schedule" name="schedule" v-model="schedule">
+                        <input 
+                            type="datetime-local" 
+                            id="schedule" 
+                            name="schedule" 
+                            :min="new Date()" 
+                            v-model="appointment.schedule"
+                        >
                     </div>
 
                     <div class="place">
                         <label for="place">Local</label>
-                        <input type="place" id="place" name="place">
+                        <input type="place" id="place" name="place" v-model="appointment.place">
                     </div>
 
                     <div class="vaccine">
                         <label for="vaccine">Vacina</label>
-                        <input type="vaccine" id="vaccine" name="vaccine">
+                        <input type="vaccine" id="vaccine" name="vaccine" v-model="appointment.vaccine">
                     </div>
 
-                    <button @click.prevent="login">
+                    <button @click.prevent="create">
                         Confirmar
                     </button>
                 </form>
@@ -43,6 +49,29 @@
 <script>
 export default {
     name: 'ModalCreate',
+
+    data() {
+        return {
+            appointment: {
+                schedule: '',
+                place: '',
+                vaccine: ''
+            }
+        }
+    },
+
+    methods: {
+        create() {
+            console.log(typeof this.appointment.schedule);
+            this.$store.dispatch('addAppointment', this.appointment);
+            this.appointment = {
+                schedule: '',
+                place: '',
+                vaccine: ''
+            }
+            this.$emit('close')
+        }
+    }
 }
 </script>
 
