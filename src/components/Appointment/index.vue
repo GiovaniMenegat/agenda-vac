@@ -1,15 +1,25 @@
 <template>
   <div class="appointment">
-    <p>{{appointment.schedule}} - {{appointment.place}} - {{appointment.vaccine}}</p>
+    <p>{{appointmentDate}} - {{appointment.place}} - {{appointment.vaccine}}</p>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: "Appointment",
 
   props: {
     appointment: Object
+  },
+
+  computed: {
+    appointmentDate() {
+      moment.locale("pt-br")
+      
+      return moment(this.appointment.schedule).format('LLLL');
+    }
   }
 }
 </script>
