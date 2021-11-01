@@ -11,14 +11,14 @@ export default {
   name: "Appointment",
 
   props: {
-    appointment: Object
+    appointment: Object,
   },
 
   computed: {
     appointmentDate() {
       moment.locale("pt-br")
       
-      return moment(this.appointment.schedule).format('LLLL');
+      return moment(this.appointment.schedule).format('LLL');
     }
   }
 }
@@ -42,8 +42,5 @@ export default {
         color: #fff;
     }
 
-    & + div {
-      margin-top: 20px;
-    }
   }
 </style>

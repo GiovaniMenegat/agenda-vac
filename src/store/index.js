@@ -16,6 +16,16 @@ const store = new Vuex.Store({
         addAppointment(state, payload) {
             state.appointments.push(payload);
         },
+        editAppointment(state, payload) {
+            for (let i = 0; i < state.appointments.length; i++) {
+                if (i === payload.id) {
+                    state.appointments[i] = payload;
+                }
+            }
+        },
+        deleteAppointment(state, payload) {
+            state.appointments.splice(payload, 1);
+        },
     },
     actions: {
         setUser({ commit }, payload) {
@@ -23,6 +33,12 @@ const store = new Vuex.Store({
         },
         addAppointment({ commit }, payload) {
             commit('addAppointment', payload);
+        },
+        editAppointment({ commit }, payload) {
+            commit('editAppointment', payload);
+        },
+        deleteAppointment({ commit }, payload) {
+            commit('deleteAppointment', payload);
         },
     },
     modules: {},

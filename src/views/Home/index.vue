@@ -7,13 +7,25 @@
     <ModalCreate v-show="isModalCreateOpen" @close="closeCreateModal" />
 
     <div class="home:appointments">
-      <Appointment 
+      <div 
+        class="home:appointment"
         v-for="(appointment, idx) in appointments" 
-        :key="idx" 
-        :appointment="appointment"
-      />
+        :key="idx"
+      >
+        
+        <Appointment
+          :appointment="appointment"
+          @click.native="openEditModal(idx)"
+        />
+
+        <ModalEdit 
+          v-show="isModalEditOpen === idx "
+          :appointment="appointment"
+          :id="idx"
+          @closeEdit="closeEditModal" 
+        />
+      </div>
     </div>
-    
   </div>
 </template>
 
@@ -21,6 +33,7 @@
 
 import Header from '@/components/Header'
 import ModalCreate from '@/components/Modal/Create'
+import ModalEdit from '@/components/Modal/Edit'
 import Appointment from '@/components/Appointment'
 
 export default {
@@ -28,7 +41,8 @@ export default {
 
   data() {
     return {
-      isModalCreateOpen: false
+      isModalCreateOpen: false,
+      isModalEditOpen: null
     }
   },
 
@@ -38,16 +52,19 @@ export default {
     },
     closeCreateModal() {
       this.isModalCreateOpen = false;
+    },
+    openEditModal(id) {
+      this.isModalEditOpen = id;
+    },
+    closeEditModal() {
+      this.isModalEditOpen = null;
     }
-  },
-
-  mounted() {
-    console.log(this.appointments);
   },
   
   components: {
     Header,
     ModalCreate,
+    ModalEdit,
     Appointment
   },
 
@@ -75,5 +92,12 @@ export default {
     &\:appointments {
       margin-top: 100px;
     }
+    
+    &\:appointment {
+      & + div {
+        margin-top: 20px;
+      }
+    }
+    
   }
 </style>

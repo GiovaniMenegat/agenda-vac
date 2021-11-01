@@ -2,11 +2,11 @@
     <div class="modal-backdrop">
         <div class="modal">
             <header class="modal-header">
-                <h1>Agendar horário</h1>
+                <h1>Editar horário</h1>
                 <button
                     type="button"
                     class="btn-close"
-                    @click="$emit('close')"
+                    @click="$emit('closeEdit')"
                 >
                     x
                 </button>
@@ -37,22 +37,29 @@
                     </div>
 
                     <button @click.prevent="create">
-                        Confirmar
+                        Confirmar Alteração
                     </button>
                 </form>
                 
             </section>
+
+            <footer class="modal-footer">
+                <button @click.prevent="deleteAppointment">
+                    Excluir agendamento
+                </button>
+            </footer>
         </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'ModalCreate',
+    name: 'ModalEdit',
 
     data() {
         return {
             appointment: {
+                id: this.id,
                 schedule: '',
                 place: '',
                 vaccine: ''
@@ -60,15 +67,23 @@ export default {
         }
     },
 
+    props: {
+        id: Number
+    },
+
     methods: {
         create() {
-            this.$store.dispatch('addAppointment', this.appointment);
+            this.$store.dispatch('editAppointment', this.appointment);
             this.appointment = {
                 schedule: '',
                 place: '',
                 vaccine: ''
             }
-            this.$emit('close')
+            this.$emit('closeEdit')
+        },
+        deleteAppointment() {
+            this.$store.dispatch('deleteAppointment', this.appointment.id);
+            this.$emit('closeEdit')
         }
     }
 }
@@ -86,6 +101,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 998;
     }
 
     .modal {
@@ -94,7 +110,7 @@ export default {
         overflow-x: auto;
         display: flex;
         flex-direction: column;
-
+        z-index: 999;
         form {
             display: flex;
             flex-direction: column;
@@ -113,10 +129,6 @@ export default {
                     width: 250px;
                     padding: 5px 15px;
                     font-size: 18px;
-                }
-
-                & + div {
-                    margin-top: 20px;
                 }
             }
 
@@ -156,6 +168,18 @@ export default {
     .modal-body {
         position: relative;
         padding: 20px 10px;
+    }
+
+    .modal-footer {
+        position: relative;
+        text-align: center;
+
+        button {
+            border: none;
+            background: transparent;
+            margin: 10px auto;
+            color: $red;
+        }
     }
 
     .btn-close {
