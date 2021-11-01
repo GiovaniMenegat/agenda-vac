@@ -18,9 +18,7 @@ export default {
 
     methods: {
         signout() {
-            this.$store.commit('setUser', {
-                user: ''
-            })
+            this.$store.commit('setUser', '')
             this.$router.push({ name: 'Login'})
         }
     },
