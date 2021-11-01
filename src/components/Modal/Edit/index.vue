@@ -36,7 +36,7 @@
                         <input type="vaccine" id="vaccine" name="vaccine" v-model="appointment.vaccine">
                     </div>
 
-                    <button @click.prevent="create">
+                    <button @click.prevent="edit">
                         Confirmar Alteração
                     </button>
                 </form>
@@ -58,7 +58,7 @@ export default {
 
     data() {
         return {
-            appointment: {
+            appointmentObject: {
                 id: this.id,
                 schedule: '',
                 place: '',
@@ -68,21 +68,17 @@ export default {
     },
 
     props: {
+        appointment: Object,
         id: Number
     },
 
     methods: {
-        create() {
+        edit() {
             this.$store.dispatch('editAppointment', this.appointment);
-            this.appointment = {
-                schedule: '',
-                place: '',
-                vaccine: ''
-            }
             this.$emit('closeEdit')
         },
         deleteAppointment() {
-            this.$store.dispatch('deleteAppointment', this.appointment.id);
+            this.$store.dispatch('deleteAppointment', this.id);
             this.$emit('closeEdit')
         }
     }
