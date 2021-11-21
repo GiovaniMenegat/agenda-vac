@@ -1,6 +1,6 @@
 <template>
   <div class="appointment">
-    <p>{{appointmentDate}} - {{appointment.place}} - {{appointment.vaccine}}</p>
+    <p>{{appointmentDate}} - {{appointment.posto}} - {{appointment.dose}}</p>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     appointmentDate() {
       moment.locale("pt-br")
       
-      return moment(this.appointment.schedule).format('LLL');
+      return moment(this.appointment.dataAgendamento).format('LLL');
     }
   }
 }

@@ -20,20 +20,19 @@
                         <input 
                             type="datetime-local" 
                             id="schedule" 
-                            name="schedule" 
-                            :min="new Date()" 
-                            v-model="appointment.schedule"
+                            name="schedule"
+                            v-model="appointmentObject.dataAgendamento"
                         >
                     </div>
 
                     <div class="place">
                         <label for="place">Local</label>
-                        <input type="place" id="place" name="place" v-model="appointment.place">
+                        <input type="place" id="place" name="place" v-model="appointmentObject.posto">
                     </div>
 
                     <div class="vaccine">
                         <label for="vaccine">Vacina</label>
-                        <input type="vaccine" id="vaccine" name="vaccine" v-model="appointment.vaccine">
+                        <input type="vaccine" id="vaccine" name="vaccine" v-model="appointmentObject.dose">
                     </div>
 
                     <button @click.prevent="edit">
@@ -53,16 +52,16 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     name: 'ModalEdit',
 
     data() {
         return {
             appointmentObject: {
-                id: this.id,
-                schedule: '',
-                place: '',
-                vaccine: ''
+                dataAgendamento: '',
+                posto: '',
+                dose: ''
             }
         }
     },
@@ -74,11 +73,18 @@ export default {
 
     methods: {
         edit() {
-            this.$store.dispatch('editAppointment', this.appointment);
+            this.appointmentObject.dataAgendamento = moment(String(this.appointmentObject.dataAgendamento)).format('YYYY-MM-DD hh:mm:ss')
+            this.$store.dispatch('editAppointment', {
+                    id: this.appointment.id, 
+                    dataAgendamento: this.appointmentObject.dataAgendamento,
+                    posto: this.appointmentObject.posto,
+                    dose: this.appointmentObject.dose
+                }
+            );
             this.$emit('closeEdit')
         },
         deleteAppointment() {
-            this.$store.dispatch('deleteAppointment', this.id);
+            this.$store.dispatch('deleteAppointment', this.appointment.id);
             this.$emit('closeEdit')
         }
     }

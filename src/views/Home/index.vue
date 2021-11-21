@@ -68,6 +68,10 @@ export default {
     Appointment
   },
 
+  mounted() {
+    this.$store.dispatch('fetchAppointments');
+  },
+
   computed: {
       appointments() {
         return this.$store.state.appointments

@@ -22,18 +22,18 @@
                             id="schedule" 
                             name="schedule" 
                             :min="new Date()" 
-                            v-model="appointment.schedule"
+                            v-model="appointment.dataAgendamento"
                         >
                     </div>
 
                     <div class="place">
                         <label for="place">Local</label>
-                        <input type="place" id="place" name="place" v-model="appointment.place">
+                        <input type="text" id="place" name="place" v-model="appointment.posto">
                     </div>
 
                     <div class="vaccine">
-                        <label for="vaccine">Vacina</label>
-                        <input type="vaccine" id="vaccine" name="vaccine" v-model="appointment.vaccine">
+                        <label for="vaccine">Dose</label>
+                        <input type="number" id="vaccine" name="vaccine" v-model="appointment.dose">
                     </div>
 
                     <button @click.prevent="create">
@@ -47,26 +47,28 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     name: 'ModalCreate',
 
     data() {
         return {
             appointment: {
-                schedule: '',
-                place: '',
-                vaccine: ''
+                dataAgendamento: '',
+                posto: '',
+                dose: ''
             }
         }
     },
 
     methods: {
-        create() {
+        create() {     
+            this.appointment.dataAgendamento = moment(String(this.appointment.dataAgendamento)).format('YYYY-MM-DD hh:mm:ss')
             this.$store.dispatch('addAppointment', this.appointment);
             this.appointment = {
-                schedule: '',
-                place: '',
-                vaccine: ''
+                dataAgendamento: '',
+                posto: '',
+                dose: ''
             }
             this.$emit('close')
         }
